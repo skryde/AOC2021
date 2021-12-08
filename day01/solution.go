@@ -35,24 +35,21 @@ func part01(lines []string) {
 
 func part02(lines []string) {
 
-	countMap := map[rune]int{}
-	letter := 'A'
 	count := 0
+	prevSum := -1
 
 	for i := 2; i < len(lines); i++ {
 		a, _ := strconv.Atoi(lines[i])
 		b, _ := strconv.Atoi(lines[i-1])
 		c, _ := strconv.Atoi(lines[i-2])
 
-		countMap[letter] = a + b + c
-		letter++
-	}
+		currentSum := a + b + c
 
-	for i := 'B'; i < letter; i++ {
-		prev := countMap[i - 1]
-		if prev < countMap[i] {
+		if prevSum != -1 && prevSum < currentSum {
 			count++
 		}
+
+		prevSum = currentSum
 	}
 
 	fmt.Println("How many sums are larger than the previous sum?")
